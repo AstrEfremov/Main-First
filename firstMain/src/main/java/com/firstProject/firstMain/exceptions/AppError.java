@@ -1,4 +1,4 @@
-package com.firstProject.firstMain.exeptions;
+package com.firstProject.firstMain.exceptions;
 
 import lombok.Data;
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:form="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="utf-8"/>
+
+	<title>View Task List</title>
+
+	<link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<meta name="ctx" th:content="${#httpServletRequest.getContextPath()}"/>
+	<style>
+        a{
+            color: white;
+        }
+        a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1 class="p-3"> Task Management List <small class="text-muted">using Rest API</small> </h1>
+
+        <form:form>
+            <table class="table table-bordered">
+            	<tr>
+            		<th>Id</th>
+            		<th>Title</th>
+            		<th>Date</th>
+            		<th>Status</th>
+            		<th>Mark Completed</th>
+            		<th>Edit</th>
+            		<th>Delete</th>
+            		<th>Person</th>
+            	</tr>
+
+            	<c:forEach var="task" items="${list}">
+                    <tr>
+                		<td>"${task.id}"</td>
+                		<td>${task.title}</td>
+                		<td>${task.date}</td>
+                		<td>${task.status}</td>
+                		<td><button type="button" class="btn btn-success">
+                		    <a href="/updateTaskStatus/${task.id}">Mark Complete</a>
+                		</button></td>
+                		<td><button type="button" class="btn btn-primary">
+                		    <a href="/editTask/${task.id}">Edit</a>
+                		</button></td>
+                		<td><button type="button" class="btn btn-danger">
+                			<a href="/deleteTask/${task.id}">Delete</a>
+                		</button></td>
+						<td> <a href="/choisePerson/${Person.name}">${Person.name}</a></td>
+                	</tr>
+
+            	</c:forEach>
+
+            </table>
+
+        </form:form>
+
+        <button type="button" class="btn btn-primary btn-block">
+        	<a href="/addTask">Add New Task</a>
+        </button>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,29 +1,24 @@
 package com.firstProject.firstMain.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class MainController {
-    @GetMapping("/unsecured")
+    @GetMapping("/unsecured12")
     public String unsecuredData(){
-        return "Unsecured data";
+        return "index";
     }
     @GetMapping("/secured")
     public String securedData(){
-        return "Secured data";
+        return "index";
     }
-     @GetMapping("/admin")
-    public String adminData(){
-        return "Admin data";
-    }
-    @GetMapping("/info")
-    public String userDate(Principal principal){
-        return principal.getName();
-    }
+
+
 
 }

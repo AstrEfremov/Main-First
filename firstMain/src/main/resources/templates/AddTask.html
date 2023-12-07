@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:form="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>    <title>Add Task</title>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h1 class="p-3">Add Task</h1>
+
+        <form:form action="/saveTask" method="post" modelAttribute="task">
+
+            <div class="row">
+            	<div class="form-group col-md-12">
+            		<label class="col-md-3" for="title">Title</label>
+            		<div class="col-md-6">
+            		    <form:input type="text" path="title" id="title"
+            		        class="form-control input-sm" required="required" />
+            		</div>
+            	</div>
+            </div>
+
+            <div class="row">
+            	<div class="form-group col-md-12">
+            		<label class="col-md-3" for="date">Date</label>
+            		<div class="col-md-6">
+            			<form:input type="date" path="date" id="date"
+            				class="form-control input-sm" required="required" />
+            		</div>
+            	</div>
+            </div>
+
+            <div class="row">
+            	<div class="form-group col-md-12">
+            		<label class="col-md-3" for="status">Status</label>
+            		<div class="col-md-6">
+            			<form:input type="text" path="status" id="status"
+            				class="form-control input-sm" value="Incomplete" />
+            		</div>
+            	</div>
+            </div>
+
+            <div class="row p-2">
+            	<div class="col-md-2">
+            		<button type="submit" value="Register" class="btn btn-success">Save</button>
+            	</div>
+            </div>
+
+        </form:form>
+
+    </div>
+
+
+</body>
+
+</html>
