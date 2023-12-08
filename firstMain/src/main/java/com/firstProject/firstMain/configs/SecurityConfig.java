@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/info").authenticated()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/editTask/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()
