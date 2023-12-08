@@ -1,1 +1,2 @@
 This project will allow me to consolidate my skills in Spring mvc, Spring Security, Rest, Git, SQL and will allow me to get an offer!
+Этот проект связывает в себе Spring Security, Sprint MVP, Thymeleaf и PostgreSQL
