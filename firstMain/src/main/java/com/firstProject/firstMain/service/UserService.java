@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +43,14 @@ public class UserService  implements UserDetailsService {
                 ).collect(Collectors.toList())
                 );
     }
+
+    public List<String> showAllUsers(){
+        List<String> users = new ArrayList<>();
+        userRepository.findAll().forEach(user -> users.add(user.getUsername()));
+        return users;
+    }
+
+
     public User createNewUser (RegistrationUserDto registrationUserDto){
         User user = new User();
         user.setUsername(registrationUserDto.getUsername());

@@ -5,10 +5,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -24,15 +26,21 @@ public class Task {
 	@Column
 	@NonNull
 	private String title;
+
+	@Column
+	private String description = null;
+
+	@Column
+	private String comment = null;
 	
 	@Column
 	@NonNull
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDate date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date date;
 	
 	@Column
 	@NonNull
-	private String status;
+	private String status = "Не выполнена";
 
 	@Column
 	@NonNull

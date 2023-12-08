@@ -17,9 +17,7 @@ public class TaskService {
 
     public List<Task> getAllTask(){
         ArrayList<Task> taskList = new ArrayList<>();
-
         repository.findAll().forEach(task -> taskList.add(task));
-
         return taskList;
     }
 
@@ -29,10 +27,10 @@ public class TaskService {
 
     public boolean updateStatus(Long id) {
         Task task = getTaskById(id);
-        task.setStatus("Completed");
-
-
-        return saveOrUpdateTask(task);
+        if (!task.getStatus().equals("Выполнена"))
+        task.setStatus("Выполнена");
+        else task.setStatus("Не выполнена");
+     return saveOrUpdateTask(task);
     }
 
     public boolean saveOrUpdateTask(Task task) {
@@ -41,13 +39,11 @@ public class TaskService {
         if(getTaskById(updatedObj.getId()) != null) {
             return true;
         }
-
         return false;
     }
 
     public boolean deleteTask(Long id){
         repository.deleteById(id);
-
         if(repository.findById(id).isEmpty()) {
             return true;
         }

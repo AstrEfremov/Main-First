@@ -6,78 +6,57 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 public class TaskController {
-	
 	@Autowired
 	private TaskService service;
-	
+
 	@GetMapping({"/", "viewTaskList"})
-	public String viewAllTask(Model model, @ModelAttribute("message") String message) {
+	public String viewAllTask(Model model) {
+//		Task task = new Task(1L,"Privet", new SimpleDateFormat("yyyy-MM-dd").parse("2000-20-20"),"Kak Dela", "Y tebya");
+//		service.saveOrUpdateTask(task);
 		model.addAttribute("list", service.getAllTask());
-		model.addAttribute("message", message);
 		return "ViewTaskList";
 	}
 	
 	@GetMapping("/updateTaskStatus/{id}")
-	public String updateTaskStatus(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-		if (service.updateStatus(id)) {
-			redirectAttributes.addFlashAttribute("message", "Update Success");
+	public String updateTaskStatus(@PathVariable Long id) {
+		System.out.println(id);
+		//		Task task = new Task(1L,"Privet", new Date(),"Incomplete", "Y tebya");
+		service.updateStatus(id);
 			return "redirect:/viewTaskList";
-		}
-		redirectAttributes.addFlashAttribute("message", "Update Failure");
-		return "redirect:/viewTaskList";
 	}
 	
-	@GetMapping("/addTask")
+	@GetMapping("/сreateNewTask")
 	public String addTask(Model model) {
 		model.addAttribute("task", new Task());
-		return "AddTask";
+		return "СreateNewTask";
 	}
-	
-	@PostMapping("/saveTask")
-	public String saveTask(Task task, RedirectAttributes redirectAttributes) {
-		if(service.saveOrUpdateTask(task)) {
-			redirectAttributes.addFlashAttribute("message", "Save Success");
-			return "redirect:/viewTaskList";
-		}
-		
-		redirectAttributes.addFlashAttribute("message", "Save Failed");
-		return "redirect:/addTask";
-	}
-	
+
 	@GetMapping("/editTask/{id}")
 	public String editTask(@PathVariable Long id, Model model) {
 		model.addAttribute("task", service.getTaskById(id));
 		return "EditTask";
 	}
+	@GetMapping("/taskDescription/{id}")
+	public String descriptionTask(@PathVariable Long id, Model model) {
+		model.addAttribute("task", service.getTaskById(id));
+		return "taskDescription";
+	}
 	
 	@PostMapping("/editSaveTask")
-	public String editSaveTask(Task task, RedirectAttributes redirectAttributes) {
-		if(service.saveOrUpdateTask(task)) {
-			redirectAttributes.addFlashAttribute("message", "Edit Success");
+	public String editSaveTask(Task task) {
+		service.saveOrUpdateTask(task);
 			return "redirect:/viewTaskList";
-		}
-		
-		redirectAttributes.addFlashAttribute("message", "Edit Failed");
-		return "redirect:/editTask/" + task.getId();
 	}
 	
 	@GetMapping("/deleteTask/{id}")
-	public String deleteTask(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-		if(service.deleteTask(id)) {
-			redirectAttributes.addFlashAttribute("message", "Delete Success");
+	public String deleteTask(@PathVariable Long id) {
+		service.deleteTask(id);
 			return "redirect:/viewTaskList";
-		}
-		
-		redirectAttributes.addFlashAttribute("message", "Delete Failure");
-		return "redirect:/viewTaskList";
 	}
-	
-	
 }

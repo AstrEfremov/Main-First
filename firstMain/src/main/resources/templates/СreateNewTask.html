@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8"/>
 
-	<title>Редактирование текущей задачи</title>
+	<title>Создание новой задачи</title>
 
 	<link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
 
@@ -32,15 +32,12 @@
 
     <div class="container">
 
-        <h1 class="p-3"> Отредактировать задачу </h1>
+        <h1 class="p-3"> Создайте новую задачу </h1>
 
 
 		<form th:action = "@{/editSaveTask}"
 			  th:object="${task}" method="post" class="form-horizontal">
-			<div style="margin-bottom: 25px" class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-				<input th:field="*{id}" placeholder="id (*)" class="form-control" type="hidden"/>
-			</div>
+
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 				<input th:field="*{title}" placeholder="Тема задания" class="form-control"/>
@@ -51,9 +48,8 @@
 			</div>
 			<div style="margin-bottom: 25px" class="input-group">
 				<input th:field="*{nameOfEmployee}" placeholder="Выбрать сотрудника" class="form-control"/>
-				<span class="btn btn-primary"><a th:href ="@{/showAllUsers}">Выбрать сотрудника</a></span></span>
+				<span class="btn btn-primary"><a th:href ="@{/showAllUsers}">Выбрать сотрудника</a></span>
 			</div>
-
 
 			<tr>	<a th:href ="@{/showAllUsers}"> <span th:text="${task.nameOfEmployee}"/> </a> </tr>
 			<div>
@@ -61,16 +57,13 @@
 				<input type="date" th:field="*{date}" id="${date}"/>
 			</div>
 
-
-			<div style="margin-bottom: 25px" class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-				<input th:field="*{comment}" placeholder="Оставить комментарий" class="form-control"/>
-			</div>
 			<div style="margin-top: 10px" class="form-group">
 				<div class="col-sm-6 controls">
-					<button type="submit" class="btn btn-primary">Отредактировать</button>
+					<button type="submit" class="btn btn-primary">Добавить новую задачу</button>
+					<span class="btn btn-primary"><a th:href ="@{/viewTaskList}">Вернуться на главную</a></span>
 				</div>
 			</div>
+
 		</form>
 
 	</div>

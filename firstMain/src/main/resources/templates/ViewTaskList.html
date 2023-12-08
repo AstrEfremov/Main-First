@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8"/>
 
-	<title>View Task List</title>
+	<title>Просмотр списка задач</title>
 
 	<link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
 
@@ -20,10 +20,10 @@
 	<meta name="ctx" th:content="${#httpServletRequest.getContextPath()}"/>
 	<style>
         a{
-            color: white;
+            color: black;
         }
         a:hover {
-            color: white;
+            color: black;
             text-decoration: none;
         }
     </style>
@@ -32,47 +32,43 @@
 
     <div class="container">
 
-        <h1 class="p-3"> Task Management List <small class="text-muted">using Rest API</small> </h1>
-
+        <h1 class="p-3"> Просмотр списка задач <small class="text-muted">выберите задачу</small> </h1>
+		<h6 class="p-3">
         <form:form>
             <table class="table table-bordered">
             	<tr>
-            		<th>Id</th>
-            		<th>Title</th>
-            		<th>Date</th>
-            		<th>Status</th>
-            		<th>Mark Completed</th>
-            		<th>Edit</th>
-            		<th>Delete</th>
-            		<th>Person</th>
+            		<th>Номер</th>
+            		<th>Наименование задачи</th>
+            		<th>Срок выполнения</th>
+            		<th>Статус</th>
+            		<th>Статус задачи</th>
+            		<th>Редактировать</th>
+            		<th>Удалить</th>
+            		<th>Исполнитель</th>
             	</tr>
 
-            	<c:forEach var="task" items="${list}">
-                    <tr>
-                		<td>"${task.id}"</td>
-                		<td>${task.title}</td>
-                		<td>${task.date}</td>
-                		<td>${task.status}</td>
+                    <tr th:each="task : ${list}">
+                		<td th:text="${task.id}"/>
+						<td> <a th:href ="@{'/taskDescription/' + ${task.id} }"> <span th:text="${task.title}"/></a></td>
+						<td> <p th:text="${#dates.format(task.date, 'yyyy-MM-dd')}"></p> </td>
+						<td th:text="${task.status}"/>
                 		<td><button type="button" class="btn btn-success">
-                		    <a href="/updateTaskStatus/${task.id}">Mark Complete</a>
+							<a th:href ="@{'/updateTaskStatus/'+ ${task.id} }">Изменить статус</a>
                 		</button></td>
                 		<td><button type="button" class="btn btn-primary">
-                		    <a href="/editTask/${task.id}">Edit</a>
+							<a th:href ="@{'/editTask/'+ ${task.id} }">Редактировать</a>
                 		</button></td>
                 		<td><button type="button" class="btn btn-danger">
-                			<a href="/deleteTask/${task.id}">Delete</a>
+                			<a th:href ="@{'/deleteTask/'+ ${task.id} }">Удалить</a>
                 		</button></td>
-						<td> <a href="/choisePerson/${Person.name}">${Person.name}</a></td>
+						<td> <a th:href ="@{/showAllUsers}"> <span th:text="${task.nameOfEmployee}"/></a></td>
                 	</tr>
-
-            	</c:forEach>
-
             </table>
 
         </form:form>
-
+		</h6>
         <button type="button" class="btn btn-primary btn-block">
-        	<a href="/addTask">Add New Task</a>
+        	<a href="/сreateNewTask">Добавить новую задачу</a>
         </button>
 
     </div>
