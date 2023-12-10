@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:form="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="utf-8"/>
+
+  <title>Список пользователей</title>
+
+  <link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+  <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}"/>
+  <style>
+        a{
+            color: black;
+        }
+        a:hover {
+            color: black;
+            text-decoration: none;
+        }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="p-3"> Выбрать пользователя для задачи </h1>
+  <form th:action="@{/editSaveTask}" th:object="${task}" method="post">
+    <form:form>
+      <table class="table table-bordered">
+        <tr th:each="user : ${list}">
+          <td><button type="submit" class="btn btn-light"><span th:text="${user}"/></button></a></td>
+      </table>
+      <th><input th:field="*{id}" type="hidden"></th>
+      <th><input th:field="*{title}" type="hidden"></th>
+      <th><input th:field="*{description}" type="hidden"></th>
+      <th><input th:field="*{comment}" type="hidden"></th>
+      <th><input th:field="*{date}" type="hidden"></th>
+      <th><input th:field="*{status}" type="hidden"></th>
+      <th><input th:field="*{nameOfEmployee}"  type="text"/> </th>
+    </form:form>
+    <p></p>
+
+  </form>
+</div>
+</body>
+</html>

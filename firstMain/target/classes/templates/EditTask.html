@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:form="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="utf-8"/>
+
+	<title>Редактирование задачи</title>
+
+	<link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<meta name="ctx" th:content="${#httpServletRequest.getContextPath()}"/>
+	<style>
+        a{
+            color: white;
+        }
+        a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1 class="p-3"> Отредактировать задачу </h1>
+
+
+		<form th:action = "@{/editSaveTask}"
+			  th:object="${task}" method="post" class="form-horizontal">
+			<div style="margin-bottom: 25px" class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input th:field="*{id}" placeholder="id (*)" class="form-control" type="hidden"/>
+			</div>
+			<div style="margin-bottom: 25px" class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input th:field="*{title}" placeholder="Тема задания" class="form-control"/>
+			</div>
+			<div style="margin-bottom: 25px" class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input th:field="*{description}" placeholder="Описание задачи" class="form-control"/>
+			</div>
+			<div style="margin-bottom: 25px" class="input-group">
+				<input th:field="*{nameOfEmployee}" placeholder="Выбрать сотрудника" class="form-control"/>
+				<span class="btn btn-primary"><a th:href ="@{/showAllUsers}">Выбрать сотрудника</a></span></span>
+			</div>
+
+
+			<tr>	<a th:href ="@{/showAllUsers}"> <span th:text="${task.nameOfEmployee}"/> </a> </tr>
+			<div>
+				<label for="${date}">Срок выполнения</label>
+				<input type="date" th:field="*{date}" id="${date}"/>
+			</div>
+
+
+			<div style="margin-bottom: 25px" class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input th:field="*{comment}" placeholder="Оставить комментарий" class="form-control"/>
+			</div>
+			<div style="margin-top: 10px" class="form-group">
+				<div class="col-sm-6 controls">
+					<button type="submit" class="btn btn-primary">Отредактировать</button>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+</body>
+
+</html>

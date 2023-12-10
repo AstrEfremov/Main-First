@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:form="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="utf-8"/>
+
+	<title>Просмотр списка задач</title>
+
+	<link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<meta name="ctx" th:content="${#httpServletRequest.getContextPath()}"/>
+	<style>
+        a{
+            color: black;
+        }
+        a:hover {
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1 class="p-3"> Просмотр списка задач <small class="text-muted">выберите задачу</small> </h1>
+		<h6 class="p-3">
+        <form:form>
+            <table class="table table-bordered">
+            	<tr>
+            		<th>Номер</th>
+            		<th>Наименование задачи</th>
+            		<th>Срок выполнения</th>
+            		<th>Статус</th>
+            		<th>Статус задачи</th>
+            		<th>Редактировать</th>
+            		<th>Удалить</th>
+            		<th>Исполнитель</th>
+            	</tr>
+
+                    <tr th:each="task : ${list}">
+                		<td th:text="${task.id}"/>
+						<td> <a th:href ="@{'/taskDescription/' + ${task.id} }"> <span th:text="${task.title}"/></a></td>
+						<td> <p th:text="${#dates.format(task.date, 'yyyy-MM-dd')}"></p> </td>
+						<td th:text="${task.status}"/>
+                		<td><button type="button" class="btn btn-success">
+							<a th:href ="@{'/updateTaskStatus/'+ ${task.id} }">Изменить статус</a>
+                		</button></td>
+                		<td><button type="button" class="btn btn-primary">
+							<a th:href ="@{'/editTask/'+ ${task.id} }">Редактировать</a>
+                		</button></td>
+                		<td><button type="button" class="btn btn-danger">
+                			<a th:href ="@{'/deleteTask/'+ ${task.id} }">Удалить</a>
+                		</button></td>
+						<td> <a th:href ="@{'/showAllUsers/'+ ${task.id}}"> <span th:text="${task.nameOfEmployee}"/></a></td>
+                	</tr>
+            </table>
+
+        </form:form>
+		</h6>
+        <button type="button" class="btn btn-primary btn-block">
+        	<a href="/сreateNewTask">Добавить новую задачу</a>
+        </button>
+
+    </div>
+
+</body>
+
+</html>
